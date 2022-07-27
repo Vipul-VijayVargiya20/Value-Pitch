@@ -125,7 +125,7 @@ const updateUser = async (req, res) => {
 
         if (requestBody.hasOwnProperty("Country")) {
 
-            if (!isValid(cuntry)) {
+            if (!isValid(Country)) {
                 return res.status(400).send({ status: false, message: "Please enter a last name" });
             }
 
@@ -145,6 +145,7 @@ const updateUser = async (req, res) => {
         return res.status(200).send({ status: true, message: "Profile updated successfuly", data: updatedProfile });
 
     } catch (error) {
+        console.log(error)
         res.status(500).send({
             message: `Something Went Wrong`
         })
@@ -157,10 +158,11 @@ const getAllUser = async (req, res) => {
 
     try {
 
-        let allUsers = userModel.find({})
+        let allUsers =  await userModel.find()
         res.status(200).send({ message: `success`, Data: allUsers })
 
     } catch (error) {
+        console.log(error)
         res.status(500).send({
             message: `Something Went Wrong`
         })
